@@ -1,0 +1,33 @@
+<% include partials/header %>
+<a type="button" href="new" class="btn btn-primary btn-block">
+  Create Post
+</a>
+<br>
+<% post.forEach(function(row){ %>
+  <div class="well">
+    <div class="row">
+      <h4>
+        <strong><%= row.title %></strong>
+        <a href="show/<%= row.id %>" class="btn btn-info pull-right">Show</a>
+      </h4>
+
+    </div>
+    <br>
+    <p>
+      <%= row.content %>
+    </p>
+    <br>
+    <hr>
+    <a href="edit/<%= row.id %>" class="btn btn-default edit-post"
+      title="Edit">
+      <span class="glyphicon glyphicon-edit" aria-hidden="true">
+      </span>
+    </a>
+    <button class="btn btn-danger delete-post" data-id="<%= row.id %>"
+      title="Delete">
+      <span class="glyphicon glyphicon-remove" aria-hidden="true">
+      </span>
+    </button>
+  </div>
+<% }) %>
+<% include partials/footer %>

@@ -1,0 +1,17 @@
+<% include partials/header %>
+<div class="well">
+  <form action="/edit/<%= post.id %>" method="post">
+    <div class="form-group">
+      <label>Title</label>
+      <br>
+      <input type="text" name="title" value="<%= post.title %>">
+    </div>
+    <div class="form-group">
+      <label>Content</label>
+      <textarea name="content" class="form-control"
+      name="content"><%= post.content %></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+<% include partials/footer %>
