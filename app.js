@@ -50,18 +50,28 @@ app.get('/new', function(req,res,next){
 app.post('/new', function(req,res,next){
   db.none('INSERT INTO post(title, content)' +
       'VALUES($1, $2)',
-    [req.body.title, req.body.content]);
-
-  res.redirect('/');
+    [req.body.title, req.body.content])
+  .then(function(result){
+    res.redirect('/');
+  })
+  .catch(function(err){
+    return next(err);
+  });
 });
 
 app.delete('/delete/:id', function(req, res){
   var id = parseInt(req.params.id);
   db.result('DELETE FROM post WHERE id = $1', id)
   .then(function (result) {
-    res.redirect('/');
   })
     .catch(function (err) {
+      return next(err);
+    });
+    db.any('SELECT * FROM post')
+    .then(function(data){
+      return res.render('index', {post: data})
+    })
+    .catch(function(err){
       return next(err);
     });
 });
